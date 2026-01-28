@@ -17,7 +17,7 @@ public class score {
 		String[] subjects = {"국어", "영어", "수학"};
 		// String[] subjects = new String{"국어", "영어", "수학"};
 		int[] scores = new int[4];
-		// int[] scores = new int[subject.length + 1];
+		// int[] scores[] = new int[subject.length][subject.length + 1];
 		
 		for (int i = 0; i < subjects.length; i++) {
 			while (true) {
@@ -34,9 +34,9 @@ public class score {
 			
 			// do {
 			// 		System.out.println(subjects[i] + " 점수 입력: ");
-			//		scores[i] = sc.nextInt();
-			// } while (scores[i] < 0 || scores[i] > 100);
-			// scores[subjects.length] += scores[i];				
+			//		scores[i][j] = sc.nextInt();
+			// } while (scores[i][j] < 0 || scores[i][j] > 100);
+			// scores[i][subjects.length] += scores[i][j];				
 		}
 		
 		// 총점 계산

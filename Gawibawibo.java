@@ -30,13 +30,14 @@ public class Gawibawibo {
 
 		boolean gameStart = true;	// 나중에 false가 되면 while 종료됨
 
+		// 입력 받기. 사용자가 입력한 값을 모두 문자열로 통일
 		while (gameStart) {
 
 			String input = JOptionPane.showInputDialog("게임을 시작함");
 
 			if (input.equals("1") || input.equals("가위")) {
 				System.out.println("가위를 입력하셨군요");
-				input = "가위"; // input을 가위로 통일시킴
+				input = "가위";	// input을 가위로 통일시킴
 			} else if (input.equals("2") || input.equals("바위")) {
 				System.out.println("바위를 입력하셨군요");
 				input = "바위";
@@ -50,56 +51,47 @@ public class Gawibawibo {
 
 			int myNum = 0;
 			
-			// 사용자가 입력한 값을 "게임 계산용 숫자"로 바꿈
+			// 계산하기 위해 문자열을 숫자로 변환
 			switch (input) {
-			case "가위":
-				myNum = 1;	// 숫자 변환
+			case "가위": myNum = 1;	// 숫자 변환
 				break;
-			case "바위":
-				myNum = 2;
+			case "바위": myNum = 2;
 				break;
-			case "보":
-				myNum = 3;
+			case "보": myNum = 3;
 				break;
 			}
 
 			int comNum = (int) (Math.random() * 3) + 1;		// 랜덤 숫자 생성
 
-			// 숫자를 다시 문자열로 바꾸는 과정
-			// 숫자는 승패 판단용
-			// 문자열은 출력용
+			// 계산하기 위해 변환한 숫자를 읽을 수 있도록 문자열로 변환
 			String comStr = "";
 			String myStr = "";
 
 			switch (comNum) {
-			case 1:
-				comStr = "가위";
+			case 1: comStr = "가위";
 				break;
-			case 2:
-				comStr = "바위";
+			case 2: comStr = "바위";
 				break;
-			case 3:
-				comStr = "보";
+			case 3: comStr = "보";
 				break;
 			}
 
 			// 계산이 끝난 숫자를 사람이 읽을 수 있게 다시 문자열로 바꾸는 과정
 			switch (myNum) {
-			case 1:
-				myStr = "가위";
+			case 1: myStr = "가위";
 				break;
-			case 2:
-				myStr = "바위";
+			case 2: myStr = "바위";
 				break;
-			case 3:
-				myStr = "보";
+			case 3: myStr = "보";
 				break;
 			}
-
+			
+			// 결과 출력
 			System.out.println("컴: " + comStr + ", 당신: " + myStr);
 
 			total++;
 
+			// 승패 진단
 			if (myNum == comNum) {
 				draw++;
 				System.out.println("무승부");
@@ -111,12 +103,14 @@ public class Gawibawibo {
 				System.out.println("컴 승리");
 			}
 
+			// 계속 게임 진행할지
 			String again = JOptionPane.showInputDialog("계속 하시겠습니까? (y/n)");
 			if (again.equalsIgnoreCase("n")) {
 				gameStart = false;
 			}
 		}
 
+		// 최종 결과
 		System.out.println("총 게임 수: " + total);
 		System.out.println("승: " + win);
 		System.out.println("패: " + lose);
