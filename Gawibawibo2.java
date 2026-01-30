@@ -43,24 +43,55 @@ class RSPGAME {
 		printFinalResult();							// 최종 결과. 출력만 하니까 호출만 하면 되므로 반환값(외부에서 받을 값) 없어서 괄호 안에 아무 것도 안 쓴 거임
 	}
 
-	// 입력 받기. 사용자가 입력한 값을 모두 문자열로 통일
+//	// 입력 받기. 사용자가 입력한 값을 모두 문자열로 통일
+//	private String getUserInput() {
+//		
+//		String input = JOptionPane.showInputDialog("게임을 시작함");
+//
+//		if (input == null)
+//			return null;
+//
+//		if (input.equals("1") || input.equals("가위"))
+//			return "가위";	// input을 가위로 통일시킴
+//		if (input.equals("2") || input.equals("바위"))
+//			return "바위";
+//		if (input.equals("3") || input.equals("보"))
+//			return "보";
+//
+//		System.out.println("올바른 값이 아닙니다.");
+//		return null;
+//	}
+	
+	
+	
 	private String getUserInput() {
-		
-		String input = JOptionPane.showInputDialog("게임을 시작함");
 
-		if (input == null)
-			return null;
+	    try {
+	        String input = JOptionPane.showInputDialog("게임을 시작함");
 
-		if (input.equals("1") || input.equals("가위"))
-			return "가위";	// input을 가위로 통일시킴
-		if (input.equals("2") || input.equals("바위"))
-			return "바위";
-		if (input.equals("3") || input.equals("보"))
-			return "보";
+	        if (input == null)   // 취소 누른 경우
+	            return null;
 
-		System.out.println("올바른 값이 아닙니다.");
-		return null;
+	        int num = Integer.parseInt(input);   // 여기서 NumberFormatException 가능. 예외 발생 지점
+
+	        if (num < 1 || num > 3) {	// 숫자는 맞지만 잘못된 숫자 입력한 경우. throw하는 곳(예외를 발생시키는 곳)
+	            throw new Exception("1, 2, 3 중에서만 입력하세요");
+	        }
+
+	        // 숫자를 문자열로 변환해서 리턴
+	        return convertToString(num);
+
+	    } catch (NumberFormatException e) {		// 문자 입력한 경우. Integer.parseInt(input); 여기서 자바가 대신 throw 해줬기 때문에 내가 throw 안 해도 catch 함
+	        System.out.println("숫자만 입력하세요");
+	        return null;	
+
+	    } catch (Exception e) {		// 숫자는 맞지만 잘못된 숫자 입력한 경우. catch하는 곳(예외를 처리하는 곳)
+	        System.out.println(e.getMessage());		// 메세지 보여주고 다시 입력받을 수 있도록
+	        return null;
+	    }
 	}
+
+	
 
 	// 계산하기 위해 문자열을 숫자로 변환 (문자열 넣으면 숫자 나옴)
 	private int convertToNumber(String str) {	// 숫자로 변환하니까 int 쓴 거고, 이 메서드 실행하려면 String 하나 줘야 돼서 저렇게 씀
@@ -111,11 +142,24 @@ class RSPGAME {
 		}
 	}
 	
-	// 계속 게임 진행할지
+//	// 계속 게임 진행할지
+//	private boolean askContinue() {
+//		String again = JOptionPane.showInputDialog("계속 하시겠습니까? (y/n)");
+//		return !again.equalsIgnoreCase("n");	// 사용자가 n을 입력하면 false 리턴
+//	}
+	
+	
+	
 	private boolean askContinue() {
-		String again = JOptionPane.showInputDialog("계속 하시겠습니까? (y/n)");
-		return !again.equalsIgnoreCase("n");	// 사용자가 n을 입력하면 false 리턴
+	    String again = JOptionPane.showInputDialog("계속 하시겠습니까? (y/n)");
+
+	    if (again == null || again.equalsIgnoreCase("n"))	// 사용자가 취소 누르면 게임 종료
+	        return false;
+
+	    return true;
 	}
+
+	
 	
 	// 최종 결과
 	private void printFinalResult() {
