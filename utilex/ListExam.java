@@ -9,82 +9,83 @@ import java.util.Collections;
 
 public class ListExam {
 
-	public static void main(String[] args) {
+   public static void main(String[] args) {
 
-		ArrayList <Integer> list = new ArrayList();		// <제네릭>: Integer 객체만 요소로 관리하겠다는 의미 
-		System.out.println(list.size());
+      ArrayList <Integer> list = new ArrayList();   // <제네릭>: Integer 객체만 요소로 관리하겠다는 의미. "Integer 타입만 저장하겠다"
+      System.out.println(list.size());
 
-		list.add(1);
-		// list.add("이");
-		list.add(3);
-		
-		System.out.println(list.size());
-		
-		Integer ig = list.get(0);
-		
-		for(int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i));
-		}
-		
-		list.add(0, 100);
-		System.out.println(list);
-		
-		ArrayList list2 = new ArrayList<Integer>();
-		list2.add(300);
-		
-		// 리스트에 리스트 넣기
-		list2.addAll(list);		// list2에 list를 넣은 거임
-		System.out.println(list2);
-		
-		System.out.println(list2.contains(3));
-		
-		list2.clear();
-		System.out.println(list2);
-		
-		// set()을 이용해서 1번 요소의 값을 2000으로 대체하자
-		list.set(1, 2000);
-		System.out.println(list);
-		
-		// player 2명을 생성한다.
-		Player p1 = new Player();
-		Player p2 = new Player();
-		
-		p1.setId("p1");
-		p1.setPw("1234");
-		
-		p1.setName("게이머1");
-		p1.setLose((int)(Math.random() * 10));
-		p1.setDraw((int)(Math.random() * 10));
-		p1.setWin((int)(Math.random() * 10));
-		
-		p2.setId("p2");
-		p2.setPw("3456");
-		p2.setName("게이머2");
-		p2.setLose((int)(Math.random() * 10));
-		p2.setDraw((int)(Math.random() * 10));
-		p2.setWin((int)(Math.random() * 10));
-		
-		List<Player> players = new ArrayList<Player>();	// Player들을 모아둘 List를 만든 것
-		
-		// 객체를 List에 등록
-		players.add(p1);
-		players.add(p2);
-		
-		new UseList().showUsers(players);	// players 안에 들어있는 리스트를 showUsers 메서드의 lists라는 변수에 복사해서 넘긴다는 의미
-		
-		List<Integer> li = new ArrayList<Integer>();
-		li.add((int)(Math.random() * 10));
-		li.add((int)(Math.random() * 10));
-		li.add((int)(Math.random() * 10));
-		li.add((int)(Math.random() * 10));
-		li.add((int)(Math.random() * 10));
-		
-		System.out.println(li);
-		
-		// Collections 라는 클래스의 메서드를 이용해서 정렬한다.
-		Collections.sort(li);	// 오름차순 정렬
-		Collections.sort(li, Collections.reverseOrder());	// 내림차순 정렬
-		System.out.println(li);
-		
-	}
+      list.add(1);      // 리스트에 요소 추가
+      // list.add("이");
+      list.add(3);
+      
+      System.out.println(list.size());   // 요소 개수 출력
+      
+      Integer ig = list.get(0);      // 0번 인덱스 값 가져오기
+      
+      for(int i = 0; i < list.size(); i++) {
+         System.out.println(list.get(i));
+      }
+      
+      list.add(0, 100);      // 0번 자리에 100을 넣고 기존 값들을 뒤로 밀어냄
+      System.out.println(list);
+      
+      ArrayList list2 = new ArrayList<Integer>();
+      list2.add(300);
+      
+      // 리스트에 리스트 넣기
+      list2.addAll(list);      // list2에 list를 넣은 거임
+      System.out.println(list2);
+      
+      System.out.println(list2.contains(3));   // list2에 3이 있으면 true
+      
+      list2.clear();         // 리스트 비우기
+      System.out.println(list2);
+      
+      // set()을 이용해서 1번 요소의 값을 2000으로 대체하자
+      list.set(1, 2000);
+      System.out.println(list);
+      
+      // player 2명을 생성한다.
+      Player p1 = new Player();
+      Player p2 = new Player();
+      
+      p1.setId("p1");
+      p1.setPw("1234");
+      p1.setName("게이머1");
+      p1.setLose((int)(Math.random() * 10));
+      p1.setDraw((int)(Math.random() * 10));
+      p1.setWin((int)(Math.random() * 10));
+      
+      p2.setId("p2");
+      p2.setPw("3456");
+      p2.setName("게이머2");
+      p2.setLose((int)(Math.random() * 10));
+      p2.setDraw((int)(Math.random() * 10));
+      p2.setWin((int)(Math.random() * 10));
+      
+      List<Player> players = new ArrayList<Player>();   // Player들을 모아둘 List를 만든 것
+      
+      // 객체를 List에 등록
+      players.add(p1);
+      players.add(p2);
+      
+      new UseList().showUsers(players);   // players 안에 들어있는 리스트를 showUsers 메서드의 lists라는 변수에 복사해서 넘긴다는 의미
+      
+      List<Integer> li = new ArrayList<Integer>();
+      li.add((int)(Math.random() * 10));
+      li.add((int)(Math.random() * 10));
+      li.add((int)(Math.random() * 10));
+      li.add((int)(Math.random() * 10));
+      li.add((int)(Math.random() * 10));
+      
+      System.out.println(li);
+      
+      // Collections 라는 클래스의 메서드를 이용해서 정렬한다.
+      Collections.sort(li);   // 오름차순 정렬
+      Collections.sort(li, Collections.reverseOrder());   // 내림차순 정렬
+      System.out.println(li);
+      
+   }
 }
+
+// ListExam (메인) -> Player 객체 2개 생성 -> List<Player> 에 저장 -> UseList.showUsers() 에 전달 -> 정렬 후 플레이어 정보 출력
