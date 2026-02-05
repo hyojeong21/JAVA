@@ -16,14 +16,16 @@ public class FileManager {
 
     // 회원 정보를 저장할 파일 이름
 	// 항상 users.txt 파일만 사용
+	// 이 클래스 안에서만 사용하기 때문에 private, 절대 바뀌지 않는 값이기 때문에 final
     private static final String FILE = "users.txt";
 
-    // 파일에서 회원 정보를 읽어와 User 객체들로 만들어서 List에 담아 돌려줌 (List<User>로 반환)
-    // loadUsers: 파일에서 회원들을 읽어오는 기능
+    // List<User>: User 여러 명을 담아서 돌려주겠다~ (반환값)
+    // loadUsers(): 파일에서 유저들을 읽어오는 기능
     public static List<User> loadUsers() throws Exception {
 
         List<User> list = new ArrayList<>();
-
+        
+        // users.txt를 new File()을 해서 파일처럼 다룰 수 있도록 함
         File file = new File(FILE);
 
         // 파일이 처음이라 존재하지 않으면 빈 리스트 반환
@@ -32,8 +34,10 @@ public class FileManager {
         }
 
         // 파일 읽기
+        // FileReader: 파일을 글자로 읽음, BufferedReader: FileReader를 감싸서 한 줄씩 읽게 함
         BufferedReader br = new BufferedReader(new FileReader(file));
 
+        // 한 줄이 String 형태로 들어와서 담아둘 변수
         String line;
         
         // 한 줄씩 읽기
@@ -49,45 +53,56 @@ public class FileManager {
 
             // User 객체 만들기
             User u = new User(
-                    arr[0],                 	// id
-                    arr[1],                 	// password
-                    arr[2],                 	// lastLogin
-                    Integer.parseInt(arr[3]), 	// total. 파일에서 읽은 건 전부 String이기 때문에 숫자로 변환
-                    Integer.parseInt(arr[4]), 	// win
-                    Integer.parseInt(arr[5]), 	// lose
-                    Integer.parseInt(arr[6])  	// draw
-            );
+            			arr[0],                 	// id
+	                    arr[1],                 	// password
+	                    arr[2],                 	// lastLogin
+	                    Integer.parseInt(arr[3].trim()), 	// total. 파일에서 읽은 건 전부 String이기 때문에 숫자로 변환
+	                    Integer.parseInt(arr[4].trim()), 	// win
+	                    Integer.parseInt(arr[5].trim()), 	// lose
+	                    Integer.parseInt(arr[6].trim())  	// draw
+            		);
 
             // 리스트에 담기
             list.add(u);
+            
         }
 
         br.close();
+        
         return list;	// 다 읽었으면 이 리스트가 UserManager로 넘어감
+        
     }
 
     // 메모리에 있는 User들(List<User>의 내용)을 파일에 저장
     // saveUsers: 유저들을 저장하는 기능
+    // List<User> list: User 여러 명을 받아옴.
     public static void saveUsers(List<User> list) throws Exception {
 
     	// 파일 쓰기
+    	// FileWriter: FILE 경로에 있는 파일에 문자 단위로 쓸 수 있는 통로를 만듦
+    	// BufferedWriter: 메모리(버퍼)에 모아놨다가 한 번에 쓰게 함 (속도 빨라짐)
         BufferedWriter bw = new BufferedWriter(new FileWriter(FILE));
 
         // User 하나씩 꺼내기
         for(User u : list) {
+        	
             bw.write(
-            	// 한 줄 문자열로 만들기 (객체를 텍스트로 변환)
-                u.getId() + "," +
-                u.getPassword() + "," +
-                u.getLastLogin() + "," +
-                u.getTotal() + "," +
-                u.getWin() + "," +
-                u.getLose() + "," +
-                u.getDraw()
-            );
+            		// 한 줄 문자열로 만들기 (객체를 텍스트로 변환)
+	                u.getId() + ", " +
+	                u.getPassword() + ", " +
+	                u.getLastLogin() + ", " +
+	                u.getTotal() + ", " +
+	                u.getWin() + ", " +
+	                u.getLose() + ", " +
+	                u.getDraw()
+            		);
+            
             bw.newLine();	// 줄바꿈
+            
         }
 
         bw.close();
+        
     }
+    
 }

@@ -37,15 +37,14 @@ public class RSPGame {
 	            
 	            // 다른 숫자 입력한 경우
 	            if (myNum < 1 || myNum > 3) {
-	                JOptionPane.showMessageDialog(null, "1, 2, 3 중 입력하세요!");
+	                JOptionPane.showMessageDialog(null, "1~3 중 입력하세요!");
 	                continue;	// while 처음으로 돌아감
 	            }
 	            
 	            int comNum = (int)(Math.random()*3)+1;	// 컴퓨터 1~3 중 랜덤 숫자 생성
 	
-	            // 화면 출력, 승패 계산
-	            printChoices(myNum, comNum);
-	            checkResult(myNum, comNum);
+	            // 화면 출력
+	            showResult(myNum, comNum);
 	
 	            // 게임 계속 할지 물어봄
 	            // askContinue()가 true를 주면 계속, false면 종료.
@@ -54,6 +53,7 @@ public class RSPGame {
 	        } catch (NumberFormatException e) {		// 문자 입력한 경우 경고창 띄우고 다시 while 처음으로 돌아감
 	            JOptionPane.showMessageDialog(null, "숫자만 입력하세요!");
 	        }
+        	
         }
 
         // 게임 끝나면 User의 누적 전적에 더해줌
@@ -63,28 +63,44 @@ public class RSPGame {
         user.setDraw(user.getDraw() + draw);
 
         JOptionPane.showMessageDialog(null, "게임 종료!");
+        
     }
 
     // 숫자를 사람이 읽을 수 있는 문자열로 바꿔서 출력
-    private void printChoices(int myNum, int comNum) {
-        String[] arr = {"", "가위", "바위", "보"};
-        System.out.println("컴: " + arr[comNum] + ", 당신: " + arr[myNum]);
-    }
+    private void showResult(int myNum, int comNum) {
+    	
+    	// 숫자 1,2,3을 그대로 쓰려고 배열의 0번은 버림
+    	String[] arr = {"", "가위", "바위", "보"};
+    	
+    	String me = arr[myNum];
+        String com = arr[comNum];
+    
+        String result;
 
-    // 이번 한 판의 결과(승패)를 저장하는 메서드
-    private void checkResult(int myNum, int comNum) {
-
-        if (myNum == comNum) draw++;
-        else if ((myNum==1&&comNum==3)||(myNum==2&&comNum==1)||(myNum==3&&comNum==2)) win++;
-        else lose++;
+        if (myNum == comNum) {
+            draw++;
+            result = "무승부!";
+        }
+        else if ((myNum==1&&comNum==3)||(myNum==2&&comNum==1)||(myNum==3&&comNum==2)) {
+            win++;
+            result = "당신 승리!";
+        }
+        else {
+            lose++;
+            result = "컴퓨터 승리!";
+        }
 
         total++;
+        
+        String msg = "컴퓨터: " + com + "\n당신: " + me + "\n\n결과: " + result;
+        JOptionPane.showMessageDialog(null, msg);
+        
     }
 
     // 게임 계속할지 물어보는 메서드
     private boolean askContinue() {
         int again = JOptionPane.showConfirmDialog(null, "계속 하시겠습니까?");
-        return again == 0;	// "예" 누르면(값 0임) true 반환, "아니오"(값 1), "취소"(값 2) 누르면 false 반환
+        return again == 0;	// "예"(값 0) 누르면 true 반환, "아니오"(값 1), "취소"(값 2) 누르면 false 반환
     }
     
 }
