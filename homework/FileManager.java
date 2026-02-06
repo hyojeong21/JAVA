@@ -19,10 +19,12 @@ public class FileManager {
 	// 이 클래스 안에서만 사용하기 때문에 private, 절대 바뀌지 않는 값이기 때문에 final
     private static final String FILE = "users.txt";
 
-    // List<User>: User 여러 명을 담아서 돌려주겠다~ (반환값)
+    // List<User>: User 객체들의 리스트를 반환
     // loadUsers(): 파일에서 유저들을 읽어오는 기능
     public static List<User> loadUsers() throws Exception {
 
+    	// List<User>: User 객체들을 담을 수 있는 리스트 자료형
+    	// new ArrayList<>(): 실제로 메모리에 빈 리스트를 만들어서 list에 할당
         List<User> list = new ArrayList<>();
         
         // users.txt를 new File()을 해서 파일처럼 다룰 수 있도록 함
@@ -83,7 +85,7 @@ public class FileManager {
     	// BufferedWriter: 메모리(버퍼)에 모아놨다가 한 번에 쓰게 함 (속도 빨라짐)
         BufferedWriter bw = new BufferedWriter(new FileWriter(FILE));
 
-        // User 하나씩 꺼내기
+        // list 안에 있는 User를 하나씩 꺼내서 u 임시 변수로 사용
         for(User u : list) {
         	
             bw.write(

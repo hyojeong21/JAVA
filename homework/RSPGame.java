@@ -47,7 +47,7 @@ public class RSPGame {
 	            showResult(myNum, comNum);
 	
 	            // 게임 계속 할지 물어봄
-	            // askContinue()가 true를 주면 계속, false면 종료.
+	            // askContinue()가 true면 계속, false면 종료.
 	            gameStart = askContinue();
 	            
 	        } catch (NumberFormatException e) {		// 문자 입력한 경우 경고창 띄우고 다시 while 처음으로 돌아감

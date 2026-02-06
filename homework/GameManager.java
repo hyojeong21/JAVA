@@ -100,9 +100,9 @@ public class GameManager {
 		// UserManager에게 회원 전체 리스트 달라고 요청
         List<User> list = userManager.getUsers();	
 
-        StringBuilder sb = new StringBuilder("===== 랭킹 =====\n");
+        StringBuilder sb = new StringBuilder("=========== 랭킹 ===========\n");
 
-        list.sort((a, b) -> b.getWin() - a.getWin());	// 승 횟수 기준으로 내림차순 정렬
+        list.sort((a, b) -> b.getWin() - a.getWin());	// 이긴 횟수 기준으로 내림차순 정렬
 
         for (User u : list) {	// 전체 회원을 돌면서 랭킹 문자열 생성
             sb.append(u.getId())
