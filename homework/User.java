@@ -7,7 +7,7 @@ public class User {
 	// 회원이 가지고 있어야 할 정보
 	// 다른 클래스에서 이 변수에 직접 접근하지 못하게 막기 위해 private 씀
     private String id;					// 아이디
-    private String password;			//  비밀번호
+    private String password;			// 비밀번호
     private String lastLogin;			// 마지막 로그인 시간
     private int total, win, lose, draw;	// 총 횟수, 이긴 횟수, 진 횟수, 비긴 횟수
 
