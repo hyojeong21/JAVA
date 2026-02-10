@@ -20,44 +20,47 @@ import java.util.concurrent.Executors;
 
 public class ThreadPoolEx {
 
-	public static void main(String[] args) {
+   public static void main(String[] args) {
 
-//		ExecutorService executorService = Executors.newFixedThreadPool(10);	// 한 번에 10개의 쓰레드를 생성함
-//		
-//		executorService.execute(null);
-//		
-//		// 이후에 처리하는 코드를 여기에 작업하고, 다 쓴 후엔 shutDown()을 호출해서 제거한다
-//		executorService.shutdown();
+//      ExecutorService executorService = Executors.newFixedThreadPool(10);   // 한 번에 10개의 쓰레드를 생성함
+//      
+//      executorService.execute(null);
+//      
+//      // 이후에 처리하는 코드를 여기에 작업하고, 다 쓴 후엔 shutDown()을 호출해서 제거한다
+//      executorService.shutdown();
 
-		String[][] mails = new String[1000][3];
-		for (int i = 0; i < mails.length; i++) {
-			mails[i][0] = "admin@hallym.ac";
-			mails[i][1] = "member" + i + "hallym.com";
-			mails[i][2] = "26년도 학사과정 공지";
-		}
+      String[][] mails = new String[1000][3];
+      // for문 1000번 → 작업 1000개 생성
+      for (int i = 0; i < mails.length; i++) {
+         mails[i][0] = "admin@hallym.ac";
+         mails[i][1] = "member" + i + "hallym.com";
+         mails[i][2] = "26년도 학사과정 공지";
+      }
 
-		ExecutorService executorService = Executors.newFixedThreadPool(5);
+      ExecutorService executorService = Executors.newFixedThreadPool(5);
+      // “쓰레드를 5개만 만들어 놓고, 앞으로 들어오는 일을 이 5명이 돌아가면서 처리해라”
 
-		// 이메일을 보내는 작업 생성 및 처리 요청
-		for (int i = 0; i < 1000; i++) {
-			final int idx = i;
+      // 이메일을 보내는 작업 생성 및 처리 요청
+      for (int i = 0; i < 1000; i++) {
+         final int idx = i;
+         // Runnable 안에서 i를 사용하려면 람다/익명클래스 내부에서는 외부 변수는 final 또는 effectively final이어야 함. 그래서 i를 복사해서 idx로 넘김.
 
-			executorService.execute(new Runnable() {
-				@Override
-				public void run() {
-					Thread thread = Thread.currentThread();
-					String from = mails[idx][0];
-					String to = mails[idx][1];
-					String content = mails[idx][2];
+         executorService.execute(new Runnable() {   // "이 작업을 쓰레드 풀에게 맡긴다". 지금 당장 실행되는 게 아니라 쓰레드가 비면 실행됨
+            @Override
+            public void run() {
+               Thread thread = Thread.currentThread();
+               String from = mails[idx][0];
+               String to = mails[idx][1];
+               String content = mails[idx][2];
 
-					System.out.println("[" + thread.getName() + "]" + from + " ==> " + to + ": " + content);
+               System.out.println("[" + thread.getName() + "]" + from + " ==> " + to + ": " + content);
 
-				}
-			});
+            }
+         });
 
-		}
-		
-		executorService.shutdown();
-	}
+      }
+      
+      executorService.shutdown();   // "더 이상 작업 안 받을게. 지금 있는 작업은 다 처리하고 종료해라" (1000개 작업이 모두 끝난 뒤 프로그램 종료)
+   }
 
 }

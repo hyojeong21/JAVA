@@ -10,20 +10,21 @@ package test.threadex;
 
 public class ThreadEx5 {
 
-	public static void main(String[] args) {
+   public static void main(String[] args) {
 
-		Thread newTh = new Thread( () -> {
-				while (true) {
-					System.out.println(Thread.currentThread().getName() + " 이 작업함");
-				}
-		});
+      // "이 쓰레드가 실행되면 run() 안의 코드를 무한 반복해라"
+      Thread newTh = new Thread( () -> {
+            while (true) {
+               System.out.println(Thread.currentThread().getName() + " 이 작업함");
+            }
+      });
 
-		// setDaemon(true);를 호출해서 자신을 생성한 쓰레드와 생명주기를 같게 만든다
-		newTh.setDaemon(true);	// start() 전에만 호출 가능
-		newTh.start();
-		
-		System.out.println("메인 쓰레드 작업 종료됨");
-		
-	}
+      // setDaemon(true);를 호출해서 자신을 생성한 쓰레드와 생명주기를 같게 만든다
+      newTh.setDaemon(true);   // start() 전에만 호출 가능
+      newTh.start();   // 새로운 쓰레드 생성. run() 실행 시작. 무한 출력 시작
+      
+      System.out.println("메인 쓰레드 작업 종료됨");
+      
+   }
 
 }
